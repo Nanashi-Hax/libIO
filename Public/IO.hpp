@@ -20,7 +20,7 @@ namespace Library::IO
     class TcpStream : public Stream
     {
     public:
-        TcpStream(Network::TcpSocket socket);
+        TcpStream(Network::TcpSocket& socket);
 
         template<std::integral T>
         TcpStream& operator<<(T value)
@@ -54,7 +54,7 @@ namespace Library::IO
         void write(void const * data, size_t const size) override;
         void read(void * data, size_t const size) override;
     
-        Network::TcpSocket socket;
+        Network::TcpSocket& socket;
         static constexpr const int timeoutMs = 1000;
     };
 

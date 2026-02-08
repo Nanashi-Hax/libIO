@@ -5,7 +5,7 @@
 
 namespace Library::IO
 {
-    TcpStream::TcpStream(Network::TcpSocket socket) : socket(socket) {}
+    TcpStream::TcpStream(Network::TcpSocket& socket) : socket(socket) {}
 
     void TcpStream::write(void const * data, size_t const size)
     {
