@@ -2,6 +2,7 @@
 
 #include <bit>
 #include <memory>
+#include <span>
 #include <Network.hpp>
 
 namespace Library::IO
@@ -24,8 +25,8 @@ namespace Library::IO
         template<std::integral T>
         TcpStream& operator<<(T value)
         {
-            value = std::byteswap(value);
-            if(std::endian::native == std::endian::little) write(&value, sizeof(value));
+            if(std::endian::native == std::endian::little) value = std::byteswap(value);
+            write(&value, sizeof(value));
             return *this;
         }
 
@@ -34,6 +35,18 @@ namespace Library::IO
         {
             read(&value, sizeof(value));
             if(std::endian::native == std::endian::little) value = std::byteswap(value);
+            return *this;
+        }
+
+        TcpStream& operator<<(std::span<std::byte> value)
+        {
+            write(value.data(), value.size());
+            return *this;
+        }
+
+        TcpStream& operator>>(std::span<std::byte> value)
+        {
+            read(value.data(), value.size());
             return *this;
         }
 
