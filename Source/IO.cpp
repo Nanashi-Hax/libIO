@@ -1,4 +1,4 @@
-#include "Stream.hpp"
+#include "IO.hpp"
 #include "Network/Result.hpp"
 #include <Network.hpp>
 #include <stdexcept>
