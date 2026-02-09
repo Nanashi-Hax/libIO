@@ -61,6 +61,6 @@ namespace Library::IO
     class StreamFactory
     {
     public:
-        static std::unique_ptr<Stream> tcp(Network::TcpSocket socket);
+        static std::unique_ptr<Stream> tcp(Network::TcpSocket& socket);
     };        
 }

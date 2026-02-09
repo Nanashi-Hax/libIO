@@ -37,7 +37,7 @@ namespace Library::IO
         }
     }
 
-    std::unique_ptr<Stream> StreamFactory::tcp(Network::TcpSocket socket)
+    std::unique_ptr<Stream> StreamFactory::tcp(Network::TcpSocket& socket)
     {
         return std::make_unique<TcpStream>(socket);
     }
