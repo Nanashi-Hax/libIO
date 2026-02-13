@@ -1,0 +1,16 @@
+--target=x86_64-pc-windows-gnu
+
+-xc++
+-Wall
+-std=c++23
+
+-IInclude
+-IPublic
+
+-ID:/msys64/mingw64/include
+-ID:/msys64/mingw64/include/c++/15.2.0
+-ID:/msys64/mingw64/include/c++/15.2.0/x86_64-w64-mingw32
+
+-ID:/Qt/6.10.1/mingw_64/include
+-ID:/Qt/6.10.1/mingw_64/include/QtCore
+-ID:/Qt/6.10.1/mingw_64/include/QtNetwork
