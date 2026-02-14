@@ -18,6 +18,8 @@ namespace Library::IO
         std::byte const * data() const;
         size_t size() const;
 
+        static constexpr const uint32_t MaxSize = 1024 * 1024;
+
     private:
         std::vector<std::byte> _data;
     };
@@ -51,6 +53,5 @@ namespace Library::IO
         State _state = State::ReadingSize;
         uint32_t _dataSize = 0;
         std::queue<Packet> _packets;
-        
     };
 }

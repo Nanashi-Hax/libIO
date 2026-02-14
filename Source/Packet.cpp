@@ -32,10 +32,12 @@ namespace Library::IO
         uint32_t size = packet.size();
 
         size_t oldSize = _buffer.size();
-        size_t newSize = sizeof(size) + size;
+        size_t newSize = sizeof(uint32_t) + size;
         _buffer.resize(oldSize + newSize);
 
-        std::memcpy(_buffer.data() + oldSize, &size, sizeof(size));
+        uint32_t sizeNetwork = size;
+        if(std::endian::native == std::endian::little) sizeNetwork = std::byteswap(sizeNetwork);
+        std::memcpy(_buffer.data() + oldSize, &sizeNetwork, sizeof(sizeNetwork));
         std::memcpy(_buffer.data() + oldSize + sizeof(size), packet.data(), size);
 
         return true;
@@ -83,7 +85,9 @@ namespace Library::IO
 
                 if (_offset == sizeof(uint32_t))
                 {
-                    std::memcpy(&_dataSize, _buffer.data(), sizeof(uint32_t));
+                    std::memcpy(&_dataSize, _buffer.data(), sizeof(_dataSize));
+                    if(std::endian::native == std::endian::little) _dataSize = std::byteswap(_dataSize);
+                    if (_dataSize > Packet::MaxSize) throw std::runtime_error("Packet too large");
 
                     _buffer.clear();
                     _buffer.resize(_dataSize);
