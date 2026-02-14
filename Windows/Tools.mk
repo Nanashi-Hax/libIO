@@ -1,4 +1,4 @@
-# Tools.mk for windows
+# Tools.mk
 
 # cpp2o
 # $1: input file
@@ -9,18 +9,6 @@ define cpp2o
     @mkdir -p $(dir $2)
     @mkdir -p $(dir $3)
     @$(CppCompiler) -c $1 -o $2 -MMD -MP -MF $3 $4
-endef
-
-# o2exe
-# $1: input files
-# $2: output file
-# $3: linker flags
-# $4: library directory flags
-# $5: library link flags
-# $6: map file
-define o2exe
-    @mkdir -p $(dir $2)
-    @$(Linker) $1 -o $2 $3 $4 $5 -Wl,-Map,$6
 endef
 
 # o2a
