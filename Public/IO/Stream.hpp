@@ -29,6 +29,50 @@ namespace Library::IO
             return *this;
         }
 
+        Stream& operator<<(float value)
+        {
+            if(std::endian::native == std::endian::little)
+            {
+                uint32_t i = std::byteswap(std::bit_cast<uint32_t>(value));
+                value = std::bit_cast<float>(i);
+            }
+            write(&value, sizeof(value));
+            return *this;
+        }
+
+        Stream& operator>>(float& value)
+        {
+            read(&value, sizeof(value));
+            if(std::endian::native == std::endian::little)
+            {
+                uint32_t i = std::byteswap(std::bit_cast<uint32_t>(value));
+                value = std::bit_cast<float>(i);
+            }
+            return *this;
+        }
+
+        Stream& operator<<(double value)
+        {
+            if(std::endian::native == std::endian::little)
+            {
+                uint64_t i = std::byteswap(std::bit_cast<uint64_t>(value));
+                value = std::bit_cast<double>(i);
+            }
+            write(&value, sizeof(value));
+            return *this;
+        }
+
+        Stream& operator>>(double& value)
+        {
+            read(&value, sizeof(value));
+            if(std::endian::native == std::endian::little)
+            {
+                uint64_t i = std::byteswap(std::bit_cast<uint64_t>(value));
+                value = std::bit_cast<double>(i);
+            }
+            return *this;
+        }
+
         Stream& operator<<(std::span<std::byte> value)
         {
             write(value.data(), value.size());
